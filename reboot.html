@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Out of Office - Developer on Debug Vacation</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #1e1e1e;
+            color: #00ff00;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        .countdown {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 1.2em;
+            color: #ffcc00;
+        }
+        .error503 {
+            margin-top: 30px;
+            color: #ff6666;
+        }
+        .retry-button {
+            margin-top: 20px;
+        }
+        .retry-button button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #ffcc00;
+            border: none;
+            cursor: pointer;
+        }
+        .spinner {
+            margin: 30px auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #ffcc00;
+            border-top: 4px solid #1e1e1e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .spinner-text {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <h1>404: Developer Not Found</h1>
+    <p>I'm currently out of office, debugging life and refactoring my sanity.</p>
+    <p>Expected return from the infinite loop: <strong>October 6, 2025</strong></p>
+
+    <div class="error503">
+        <h2>Error 503: Service Unavailable</h2>
+        <p>Developer is currently offline for scheduled maintenance.<br>
+        ETA: October 6, 2025.<br>
+        Please refresh your patience and try again later.</p>
+    </div>
+
+    <div class="retry-button">
+        <button onclick="alert('Still unavailable. Try snacks instead.')">Retry?</button>
+    </div>
+
+    <div class="spinner"></div>
+    <div class="spinner-text">Attempting to reconnect to developer... Nope, still offline.</div>
+
+    <div class="countdown" id="countdown"></div>
+
+    <div class="footer">
+        <p>System reboot in progress... Please stand by with coffee and memes.</p>
+        <p>May your code compile and your coffee be strong.</p>
+    </div>
+
+    <script>
+        const returnDate = new Date("October 6, 2025 09:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = returnDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML =
+                days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "I'm back! Let's squash some bugs.";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
